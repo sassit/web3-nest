@@ -10,6 +10,7 @@ import { TransactionModule } from './transaction/transaction.module';
 import { BlockModule } from './block/block.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { VoteModule } from './vote/vote.module';
+import { VoteController } from './vote/vote.controller';
 
 @Module({
   imports: [
@@ -23,7 +24,12 @@ import { VoteModule } from './vote/vote.module';
     }),
     MongooseModule.forRoot('mongodb://localhost/vote'),
   ],
-  controllers: [BlockController, AddressController, TransactionController],
+  controllers: [
+    VoteController,
+    BlockController,
+    AddressController,
+    TransactionController,
+  ],
   providers: [],
 })
 export class AppModule {}
