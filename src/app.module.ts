@@ -9,6 +9,7 @@ import { AddressModule } from './address/address.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { BlockModule } from './block/block.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { VoteModule } from './vote/vote.module';
 
 @Module({
   imports: [
@@ -16,10 +17,11 @@ import { MongooseModule } from '@nestjs/mongoose';
     BlockModule,
     TransactionModule,
     AddressModule,
+    VoteModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost/nest'),
+    MongooseModule.forRoot('mongodb://localhost/vote'),
   ],
   controllers: [BlockController, AddressController, TransactionController],
   providers: [],
