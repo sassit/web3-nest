@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Web3 from 'web3';
+import * as contract from '../vote/tokenized.ballot.json';
 
 @Injectable()
 export class Web3Service {
@@ -37,10 +38,6 @@ export class Web3Service {
   }
 
   async getVoteContract() {
-    const abi = this.configService.get<string>('VOTE_CONTRACT_ABI');
-    return new this.web3Instance.eth.Contract(
-      JSON.parse(abi),
-      this.contractAddress,
-    );
+    return new this.web3Instance.eth.Contract(contract, this.contractAddress);
   }
 }
