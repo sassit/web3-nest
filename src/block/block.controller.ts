@@ -5,7 +5,7 @@ import { BlockService } from './block.service';
 export class BlockController {
   constructor(private readonly blockService: BlockService) {}
 
-  @Get()
+  @Get('latest')
   async getBlockNumber(): Promise<number> {
     return await this.blockService.getBlockNumber();
   }

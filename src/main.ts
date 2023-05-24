@@ -7,9 +7,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('NestJS Ethereum API')
-    .setDescription('The Ethereum API description')
+    .setDescription('Encode Bootcamp NestJS Ethereum API Documentatio')
     .setVersion('1.0')
-    .addTag('ethereum')
+    .addTag('Encode Bootcamp')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

@@ -5,7 +5,7 @@ export class BlockService {
   constructor(private web3Service: Web3Service) {}
 
   async getBlockNumber(): Promise<number> {
-    return await this.web3Service.getBlockNumber();
+    return this.web3Service.getBlockNumber();
   }
 
   async getBlock(id: number) {

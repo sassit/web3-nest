@@ -4,16 +4,14 @@ REST API that interacts with a eth provider using web3.js
 
 ## Instructions
 
-1. Change .env alchemy secret
+1. Change .env tokens
 2. npm start 
 
 ## Available endpoints
 
-`localhost:3000/block`
+Endpoints are avalaible via: `localhost:3001/api`
+MongoDB is available at: `mongodb://localhost/vote`
 
-`localhost:3000/block/:id`
+## MongoDB installation
 
-`localhost:3000/address/:address`
-
-`localhost:3000/transaction/:hash`
-
+https://www.mongodb.com/docs/manual/installation/

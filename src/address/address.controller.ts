@@ -6,7 +6,7 @@ import { AddressService } from './address.service';
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
-  @Get(':address')
+  @Get('balance/:address')
   async getBalance(
     @Param('address', AddressValidationPipe) address: string,
   ): Promise<string> {

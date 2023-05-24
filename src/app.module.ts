@@ -11,6 +11,8 @@ import { BlockModule } from './block/block.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { VoteModule } from './vote/vote.module';
 import { VoteController } from './vote/vote.controller';
+import { TokenModule } from './token/token.module';
+import { TokenController } from './token/token.controller';
 
 @Module({
   imports: [
@@ -19,6 +21,7 @@ import { VoteController } from './vote/vote.controller';
     TransactionModule,
     AddressModule,
     VoteModule,
+    TokenModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -29,6 +32,7 @@ import { VoteController } from './vote/vote.controller';
     BlockController,
     AddressController,
     TransactionController,
+    TokenController,
   ],
   providers: [],
 })

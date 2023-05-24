@@ -12,26 +12,18 @@ export class TransactionService {
   ) {}
 
   async getTransaction(transactionHash: string): Promise<Transaction> {
-    // buscar bloque en base de datos
-    // existe? lo devuelvo
-    // no existe? lo busco en web3, si existe lo creo en la db y lo devuelvo
-    console.log('Buscando Tx en la DB...');
     const transactionDB = await this.transactionModel.findOne({
       hash: transactionHash,
     });
 
     if (transactionDB) {
-      console.log('Tx encontrada');
       return transactionDB;
     } else {
-      console.log('No se encontro la Tx en la DB');
-      console.log('Buscando en Web3...');
       const transaction = await this.web3Service.getTransaction(
         transactionHash,
       );
 
       if (transaction) {
-        console.log('Creando Tx en la DB...');
         const newTransaction = new this.transactionModel(transaction);
         return await newTransaction.save();
       }
