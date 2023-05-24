@@ -50,8 +50,7 @@ export class Web3Service {
   async getTransaction(
     hash: string,
   ): Promise<ethers.providers.TransactionReceipt> {
-    const tx = await this.provider.getTransaction(hash);
-    return tx.wait();
+    return await this.provider.getTransactionReceipt(hash);
   }
 
   async getBlock(id: number): Promise<ethers.providers.Block> {
