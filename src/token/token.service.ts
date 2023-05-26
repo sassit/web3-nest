@@ -14,7 +14,7 @@ export class TokenService {
   }
 
   async getTotalSupply() {
-    this.contract.totalSupply();
+    this.contract.totalSupply() || '0';
   }
 
   async getBalanceOf(address: string) {

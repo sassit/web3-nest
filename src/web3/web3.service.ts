@@ -20,6 +20,7 @@ export class Web3Service {
       'TOKEN_CONTRACT_ADDRESS',
     );
     this.provider = new ethers.providers.AlchemyProvider('maticmum', apiKey);
+    console.log('Connected to chain:', this.provider.network.name);
     this.ballotContract = new Contract(
       ballotAddress,
       ballot.abi,
@@ -50,7 +51,7 @@ export class Web3Service {
   async getTransaction(
     hash: string,
   ): Promise<ethers.providers.TransactionReceipt> {
-    return await this.provider.getTransactionReceipt(hash);
+    return (await this.provider.getTransaction(hash)).wait();
   }
 
   async getBlock(id: number): Promise<ethers.providers.Block> {
@@ -62,6 +63,6 @@ export class Web3Service {
   }
 
   async getBalance(address: string): Promise<string> {
-    return (await this.provider.getBalance(address)).toString();
+    return (await this.provider.getBalance(address))?.toString();
   }
 }
