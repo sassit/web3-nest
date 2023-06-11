@@ -1,40 +1,16 @@
-import { IpfsService } from '@mfsoftworks/nestjs-ipfs';
 import { Injectable } from '@nestjs/common';
 import { Metadata } from '../dto/upload.metadata.dto';
+import { IpfsService } from '../ipfs/ipfs.service';
 
 @Injectable()
 export class UploadService {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(private ipfService: IpfsService) {}
-
+  constructor(private readonly ipfsService: IpfsService) {}
   async uploadFile(
     metadata: Metadata,
     file: Express.Multer.File,
   ): Promise<string> {
-    const node = await this.ipfService.getNode();
-    const uuid = self.crypto.randomUUID();
-
-    const { cid: imageCid } = await node.add(
-      {
-        path: `${metadata.path}/nft${uuid}/image`,
-        content: file.buffer as any,
-      },
-      { trickle: true },
-    );
-
-    const jsonMetadata = {
-      name: metadata.headers.filename,
-      image_cid: imageCid.toString(),
-    };
-
-    const { cid } = await node.add(
-      {
-        path: `${metadata.path}/nft${uuid}/metadata`,
-        content: JSON.stringify(jsonMetadata) as any,
-      },
-      { trickle: true },
-    );
-
-    return cid.toString();
+    const client = this.ipfsService.getClient();
+    const added = await client.add(file.buffer);
+    return added.cid.toString();
   }
 }

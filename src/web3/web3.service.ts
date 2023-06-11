@@ -11,7 +11,7 @@ export class Web3Service {
   private readonly tokenContract: Contract;
   private readonly signer: Wallet;
 
-  constructor(private configService: ConfigService) {
+  constructor(private readonly configService: ConfigService) {
     const apiKey = this.configService.get<string>('ALCHEMY_API_KEY');
     const ballotAddress = this.configService.get<string>(
       'BALLOT_CONTRACT_ADDRESS',
