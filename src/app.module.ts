@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { BlockController } from './block/block.controller';
 import { AddressController } from './address/address.controller';
 import { TransactionController } from './transaction/transaction.controller';
+import { IpfsModule } from '@mfsoftworks/nestjs-ipfs';
 
 import { AddressModule } from './address/address.module';
 import { TransactionModule } from './transaction/transaction.module';
@@ -13,6 +14,8 @@ import { VoteModule } from './vote/vote.module';
 import { VoteController } from './vote/vote.controller';
 import { TokenModule } from './token/token.module';
 import { TokenController } from './token/token.controller';
+import { UploadController } from './upload/upload.controller';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -22,6 +25,8 @@ import { TokenController } from './token/token.controller';
     AddressModule,
     VoteModule,
     TokenModule,
+    UploadModule,
+    IpfsModule.register(),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -33,6 +38,7 @@ import { TokenController } from './token/token.controller';
     AddressController,
     TransactionController,
     TokenController,
+    UploadController,
   ],
   providers: [],
 })
