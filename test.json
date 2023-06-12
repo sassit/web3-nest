@@ -1,1 +1,5 @@
-{ "nftName" : "Beam me up scotty!" }
+{
+  "nftName": "Beam me up scotty!",
+  "nftDescription": "This is a descrtiption of the NFT",
+  "address": "0x63Ec8bcF66479CE5844Eb8cb5147C9D1CC448B95"
+}

@@ -3,12 +3,14 @@ import { ConfigService } from '@nestjs/config';
 import { Wallet, Contract, ethers } from 'ethers';
 import ballot from '../assets/tokenized.ballot.json';
 import token from '../assets/vote.token.json';
+import nft from '../assets/nft.token.json';
 
 @Injectable()
 export class Web3Service {
   private readonly provider: ethers.providers.BaseProvider;
   private readonly ballotContract: Contract;
   private readonly tokenContract: Contract;
+  private readonly nftContract: Contract;
   private readonly signer: Wallet;
 
   constructor(private readonly configService: ConfigService) {
@@ -18,6 +20,9 @@ export class Web3Service {
     );
     const tokenContractAddress = this.configService.get<string>(
       'TOKEN_CONTRACT_ADDRESS',
+    );
+    const nftContractAddress = this.configService.get<string>(
+      'NFT_CONTRACT_ADDRESS',
     );
     this.provider = new ethers.providers.AlchemyProvider('maticmum', apiKey);
     console.log('Connected to chain:', this.provider.network.name);
@@ -31,6 +36,7 @@ export class Web3Service {
       token.abi,
       this.provider,
     );
+    this.nftContract = new Contract(nftContractAddress, nft.abi, this.provider);
     const pKey = this.configService.get<string>('PRIVATE_KEY');
     const wallet = new ethers.Wallet(pKey);
     this.signer = wallet.connect(this.provider);
@@ -42,6 +48,10 @@ export class Web3Service {
 
   getTokenContract(): Contract {
     return this.tokenContract;
+  }
+
+  getNftContract(): Contract {
+    return this.nftContract;
   }
 
   getWallet(): Wallet {

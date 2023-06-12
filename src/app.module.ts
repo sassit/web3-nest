@@ -16,6 +16,7 @@ import { TokenController } from './token/token.controller';
 import { UploadController } from './upload/upload.controller';
 import { UploadModule } from './upload/upload.module';
 import { IpfsModule } from './ipfs/ipfs.module';
+import { NftModule } from './nft/nft.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { IpfsModule } from './ipfs/ipfs.module';
     TokenModule,
     UploadModule,
     IpfsModule,
+    NftModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
