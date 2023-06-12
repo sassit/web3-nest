@@ -10,15 +10,21 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { Metadata } from '../dto/upload.metadata.dto';
 import { UploadNftDto } from '../dto/upload.nft.dto';
+import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 
 @Controller('/ipfs')
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
   @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file: Express.Multer.File): Promise<string> {
-    const metadata = this.generateMetadata('test', file);
-    return await this.uploadService.uploadFile(metadata, file);
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadFile(
+    @UploadedFile() image: Express.Multer.File,
+    @Body() data: UploadNftDto,
+  ): Promise<string> {
+    console.log('data', data);
+    console.log('image', image);
+    const metadata = this.generateMetadata(data.nftName, image);
+    return await this.uploadService.uploadFile(metadata, image);
   }
 
   private generateMetadata(
