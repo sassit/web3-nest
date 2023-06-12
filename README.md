@@ -16,8 +16,8 @@ MongoDB is available at: `mongodb://localhost/vote`
 
 https://www.mongodb.com/docs/manual/installation/
 
-## IPFS file upload
-curl http://localhost:3001/ipfs/upload -F 'file=@./test.png'
+## IPFS file upload [minting of nft not working yet]
+curl -iv --form image=@./test.png data=@./test.json http://localhost:3001/ipfs/upload
 
 This works but it needs an additional attribute with metadata.
 
