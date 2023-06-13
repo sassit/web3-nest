@@ -3,15 +3,14 @@ import {
   Controller,
   Post,
   UploadedFile,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { Metadata } from '../dto/upload.metadata.dto';
 import { UploadNftDto } from '../dto/upload.nft.dto';
-import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { NftService } from 'src/nft/nft.service';
+import { FileSystemStoredFile, FormDataRequest } from 'nestjs-form-data';
 
 @Controller('/ipfs')
 export class UploadController {
@@ -20,25 +19,23 @@ export class UploadController {
     private readonly nftService: NftService,
   ) {}
   @Post('upload')
-  @UseInterceptors(FileInterceptor('image'))
-  async uploadFile(
-    @UploadedFile() image: Express.Multer.File,
-    @Body() data: UploadNftDto,
-  ): Promise<string> {
-    const metadata = this.generateMetadata(data, image);
-    const nftMetadata = await this.uploadService.uploadFile(metadata, image);
+  @FormDataRequest({ storage: FileSystemStoredFile })
+  async uploadFile(@Body() data: UploadNftDto): Promise<string> {
+    console.log(data);
+    const metadata = this.generateMetadata(data);
+    const nftMetadata = await this.uploadService.uploadFile(
+      metadata,
+      data.image,
+    );
     return await this.nftService.mint(data.address, nftMetadata);
   }
 
-  private generateMetadata(
-    data: UploadNftDto,
-    file: Express.Multer.File,
-  ): Metadata {
+  private generateMetadata(data: UploadNftDto): Metadata {
     return {
       headers: {
-        filename: file.originalname,
-        contentType: file.mimetype,
-        size: file.size,
+        filename: data.image.path,
+        contentType: data.image.mimetype,
+        size: data.image.size,
       },
       path: `/${data.nftName}`,
       description: `/${data.nftDescription}`,

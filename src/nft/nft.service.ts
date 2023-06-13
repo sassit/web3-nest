@@ -15,6 +15,6 @@ export class NftService {
     const payload = JSON.stringify(metadata);
     return this.contract
       .connect(this.web3Service.getWallet())
-      .safeMint(address, this.id++, ethers.utils.toUtf8Bytes(payload));
+      .mint(address, this.id++, 1, ethers.utils.toUtf8Bytes(payload));
   }
 }

@@ -1,0 +1,2 @@
+curl -F image=@./test.png -F nftName=Hello -F nftDescription=Test -F address=0x63Ec8bcF66479CE5844Eb8cb5147C9D1CC448B95  http://localhost:3001/ipfs/upload
+curl -H "Content-Type:multipart/form-data" -F image=@./test.png -F "data=@test.json;type=application/json"  http://localhost:3001/ipfs/upload

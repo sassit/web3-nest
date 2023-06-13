@@ -17,6 +17,7 @@ import { UploadController } from './upload/upload.controller';
 import { UploadModule } from './upload/upload.module';
 import { IpfsModule } from './ipfs/ipfs.module';
 import { NftModule } from './nft/nft.module';
+import { NestjsFormDataModule } from 'nestjs-form-data';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { NftModule } from './nft/nft.module';
     UploadModule,
     IpfsModule,
     NftModule,
+    NestjsFormDataModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

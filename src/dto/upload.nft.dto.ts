@@ -1,7 +1,16 @@
-import { IsString } from 'class-validator';
+import {
+  FileSystemStoredFile,
+  HasMimeType,
+  IsFile,
+  MaxFileSize,
+} from 'nestjs-form-data';
 
 export class UploadNftDto {
-  readonly nftName: string;
-  readonly nftDescription: string;
-  readonly address: string;
+  @IsFile()
+  @MaxFileSize(1e6)
+  @HasMimeType(['image/jpeg', 'image/png'])
+  image: FileSystemStoredFile;
+  nftName: string;
+  nftDescription: string;
+  address: string;
 }

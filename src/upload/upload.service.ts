@@ -2,13 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { Metadata } from '../dto/upload.metadata.dto';
 import { IpfsService } from '../ipfs/ipfs.service';
 import crypto from 'crypto';
+import { FileSystemStoredFile } from 'nestjs-form-data';
+import fs from 'fs';
 
 @Injectable()
 export class UploadService {
   constructor(private readonly ipfsService: IpfsService) {}
   async uploadFile(
     metadata: Metadata,
-    file: Express.Multer.File,
+    file: FileSystemStoredFile,
   ): Promise<any> {
     const client = this.ipfsService.getClient();
     const id = crypto.randomBytes(32).toString('hex');
@@ -16,7 +18,7 @@ export class UploadService {
     const { cid: imageCid } = await client.add(
       {
         path: `${metadata.path}/nft-${id}/image`,
-        content: file.buffer as any,
+        content: fs.readFileSync(file.path) as any,
       },
       { trickle: true },
     );
