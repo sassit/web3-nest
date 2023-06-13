@@ -6,7 +6,7 @@ import { Metadata } from 'src/dto/upload.metadata.dto';
 @Injectable()
 export class NftService {
   private readonly contract: Contract;
-  private id: 0;
+  private id = 0;
   constructor(private readonly web3Service: Web3Service) {
     this.contract = this.web3Service.getNftContract();
   }
@@ -15,6 +15,11 @@ export class NftService {
     const payload = JSON.stringify(metadata);
     return this.contract
       .connect(this.web3Service.getWallet())
-      .mint(address, this.id++, 1, ethers.utils.toUtf8Bytes(payload));
+      .mint(
+        address,
+        ethers.BigNumber.from(this.id++),
+        1,
+        ethers.utils.toUtf8Bytes(payload),
+      );
   }
 }
