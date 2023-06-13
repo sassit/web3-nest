@@ -13,6 +13,7 @@ export class NftService {
   // address account, uint256 id, uint256 amount, bytes memory data
   async mint(address: string, metadata: Metadata) {
     const payload = JSON.stringify(metadata);
+    console.log(address);
     return this.contract
       .connect(this.web3Service.getWallet())
       .mint(

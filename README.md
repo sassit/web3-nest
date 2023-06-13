@@ -16,9 +16,9 @@ MongoDB is available at: `mongodb://localhost/vote`
 
 https://www.mongodb.com/docs/manual/installation/
 
-## IPFS file upload [minting of nft not working yet]
-curl -iv --form image=@./test.png data=@./test.json http://localhost:3001/ipfs/upload
+## IPFS file upload [minting of nft working but probably has issues, cannot see nft in metamask, but onchain and in ipfs]
+curl -F image=@./test.png -F nftName=Hello -F nftDescription=Test -F address=0x63Ec8bcF66479CE5844Eb8cb5147C9D1CC448B95  http://localhost:3001/ipfs/upload
 
 This works but it needs an additional attribute with metadata.
 
-The file can be retrieved via: https://ipfs.io/ipfs/<cid>
+The file can be retrieved via: https://ipfs.io/ipfs/<cid> (you can see the ipfs url in the metadata on-chain or console.log)
