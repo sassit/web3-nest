@@ -5,7 +5,7 @@ REST API that interacts with a eth provider using web3.js
 ## Instructions
 
 1. Change .env tokens
-2. yarm
+2. yarn
 3. yarn dev
 
 ## Available endpoints
